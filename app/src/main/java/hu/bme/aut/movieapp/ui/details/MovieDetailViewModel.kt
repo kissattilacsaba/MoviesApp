@@ -1,4 +1,4 @@
-package hu.bme.aut.movieapp.ui.main
+package hu.bme.aut.movieapp.ui.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(
+class MovieDetailViewModel @Inject constructor(
     val repository: MovieRepository
 ) : ViewModel() {
-    var allMovies: LiveData<List<Movie>>? = repository.getAllMovies()
+    var movie: LiveData<Movie>? = repository.getMovieById("movieId")
 
-    fun delete(movie: Movie) = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(movie)
+    fun insert(movie: Movie) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(movie)
     }
 }

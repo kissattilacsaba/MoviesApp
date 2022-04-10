@@ -2,15 +2,17 @@ package hu.bme.aut.movieapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.movieapp.R
-import hu.bme.aut.movieapp.databinding.CityRowBinding
 import androidx.databinding.DataBindingUtil
+import hu.bme.aut.movieapp.databinding.MovieRowBinding
 import hu.bme.aut.movieapp.model.Movie
+import hu.bme.aut.movieapp.ui.details.MovieDetailActivity
 import hu.bme.aut.movieapp.ui.main.MoviesViewModel
 
 class MovieAdapter(private val context: Context,
@@ -19,8 +21,8 @@ class MovieAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val binding: CityRowBinding = DataBindingUtil.inflate(layoutInflater,
-            R.layout.city_row,
+        val binding: MovieRowBinding = DataBindingUtil.inflate(layoutInflater,
+            R.layout.movie_row,
             parent, false)
         binding.adapter = this
         return ViewHolder(binding)
@@ -31,17 +33,17 @@ class MovieAdapter(private val context: Context,
         holder.bind(movie)
     }
 
-    fun deleteCity(movie: Movie) {
+    fun deleteMovie(movie: Movie) {
         moviesViewModel.delete(movie)
     }
 
     fun showDetails(Movie: Movie) {
-        //val intent = Intent(context, MovieDetailsActivity::class.java)
-        //intent.putExtra(MovieDetailsActivity.KEY_CITY, movie.name)
-        //context.startActivity(intent)
+        val intent = Intent(context, MovieDetailActivity::class.java)
+        intent.putExtra(MovieDetailActivity.KEY_MOVIE, "movie.name")
+        context.startActivity(intent)
     }
 
-    class ViewHolder(val binding: CityRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: MovieRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.movie = movie
         }
