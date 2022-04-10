@@ -1,37 +1,43 @@
-package hu.bme.aut.movieapp
+package hu.bme.aut.movieapp.ui.main
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
+import hu.bme.aut.movieapp.R
 import hu.bme.aut.movieapp.databinding.ActivityMainBinding
+import hu.bme.aut.movieapp.ui.MovieAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    lateinit var movieAdapter: MovieAdapter
+    private val moviesViewModel: MoviesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        initRecyclerView()
+    }
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+    private fun initRecyclerView() {
+        movieAdapter = MovieAdapter(this, moviesViewModel)
+        listMovies.adapter = movieAdapter
+
+
+        moviesViewModel.allMovies?.observe(this, {
+                movies -> movieAdapter.submitList(movies)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,9 +56,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
 }
