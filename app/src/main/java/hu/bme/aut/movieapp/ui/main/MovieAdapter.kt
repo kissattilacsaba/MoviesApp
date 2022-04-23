@@ -37,9 +37,9 @@ class MovieAdapter(private val context: Context,
         moviesViewModel.delete(movie)
     }
 
-    fun showDetails(Movie: Movie) {
+    fun showDetails(movie: Movie) {
         val intent = Intent(context, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.KEY_MOVIE, "movie.name")
+        intent.putExtra(MovieDetailActivity.KEY_MOVIE, movie.imdbID)
         context.startActivity(intent)
     }
 

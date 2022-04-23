@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MoviesApp/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/MoviesApp/app/src/main/res/layout/activity_movie_detail.xml" value="0.14130434782608695" />
         <entry key="..\:/MoviesApp/app/src/main/res/layout/city_row.xml" value="0.14130434782608695" />
         <entry key="..\:/MoviesApp/app/src/main/res/layout/content_main.xml" value="0.14130434782608695" />
         <entry key="..\:/MoviesApp/app/src/main/res/layout/fragment_first.xml" value="0.14130434782608695" />
+        <entry key="..\:/MoviesApp/app/src/main/res/layout/movie_row.xml" value="0.1" />
       </map>
     </option>
   </component>
