@@ -18,20 +18,16 @@ class MovieRepository @Inject constructor(
 ) {
 
     fun searchMovies(allMovies: MutableLiveData<List<Movie>>) {
-        var  movies = SearchResult()
-        var call = movieService.getMovies("jurassic", "531f73d8")
+        val call = movieService.getMovies("jurassic", "531f73d8")
         call.enqueue(object: Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
-                movies = response.body()!!
                 allMovies.postValue((response.body()!!.Search))
-                Log.v("teszttag: ", movies.Search.size.toString())
             }
 
             override fun onFailure(call: Call<SearchResult>, t: Throwable) {
                 t.message?.let { Log.e("Test", it) }
             }
         })
-        //Log.v("teszttag: ", "Response: "+movies.Search.size.toString())
     }
 
     /*fun getAllMovies() : MutableLiveData<List<Movie>> {
