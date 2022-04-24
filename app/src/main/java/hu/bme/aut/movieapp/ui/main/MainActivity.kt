@@ -33,7 +33,10 @@ class MainActivity : AppCompatActivity() {
             apiButton.text = "Changed!"
 
         }
-
+        binding.dbButton.setOnClickListener {
+            moviesViewModel.getMovies()
+            dbButton.text="Success!!"
+        }
 
     }
 

@@ -1,9 +1,20 @@
 package hu.bme.aut.movieapp.model
 
-data class Movie(
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "movies")
+data class Movie (
+    @PrimaryKey(autoGenerate = true) val id: Long,
     val Title: String,
+    val Plot: String,
     val Year: String,
+    val Director: String,
+    val Actors: String,
+    val Poster: String,
+    val Genre: String,
+    val Runtime: String,
     val imdbID: String,
     val Type: String,
-    val Poster: String
+    val Response: String
 )
