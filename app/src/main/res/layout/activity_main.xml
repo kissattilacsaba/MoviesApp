@@ -19,6 +19,13 @@
         android:layout_height="wrap_content"
         android:text="Test Api" />
 
+    <Button
+        android:id="@+id/dbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Database"
+        android:layout_gravity="end"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listMovies"
         android:layout_width="match_parent"

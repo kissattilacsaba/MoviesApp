@@ -39,7 +39,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDisneyService(retrofit: Retrofit): MovieService {
+    fun provideMovieService(retrofit: Retrofit): MovieService {
         return retrofit.create(MovieService::class.java)
     }
 }

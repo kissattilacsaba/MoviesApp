@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import hu.bme.aut.movieapp.R
-import hu.bme.aut.movieapp.databinding.ActivityMainBinding
 import hu.bme.aut.movieapp.databinding.ActivityMovieDetailBinding
-import hu.bme.aut.movieapp.model.Movie
-import hu.bme.aut.movieapp.ui.main.MoviesViewModel
+import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 @AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
@@ -27,18 +24,16 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         movieId = intent.getStringExtra(KEY_MOVIE)!!
 
-        detailsViewModel.movie?.observe(this, {
+        detailsViewModel.movie.observe(this, {
             binding.Movieplot.text = it.Plot
         })
 
         detailsViewModel.getMovie(movieId)
+        binding.savebtn.setOnClickListener {
+            detailsViewModel.insert()
+            savebtn.text="Success!!"
+        }
     }
 
-    fun bindMovie(movie: Movie) {
 
-    }
-
-    fun insertMovie(movie: Movie) {
-        detailsViewModel.insert(movie)
-    }
 }
