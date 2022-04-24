@@ -1,4 +1,9 @@
 package hu.bme.aut.movieapp.model
 
-class Movie {
-}
+data class Movie(
+    val Title: String,
+    val Year: String,
+    val imdbID: String,
+    val Type: String,
+    val Poster: String
+)

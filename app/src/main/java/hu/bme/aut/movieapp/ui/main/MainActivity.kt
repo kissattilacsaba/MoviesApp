@@ -26,8 +26,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
         initRecyclerView()
+        binding.apiButton.setOnClickListener {
+            //initRecyclerView()
+            moviesViewModel.testApi()
+            apiButton.text = "Changed!"
+
+        }
+
+
     }
 
     private fun initRecyclerView() {
