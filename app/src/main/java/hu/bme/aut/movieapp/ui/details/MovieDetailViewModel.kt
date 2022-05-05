@@ -20,7 +20,11 @@ class MovieDetailViewModel @Inject constructor(
         movie.value?.let { repository.insert(it) }
     }
 
-    fun getMovie(id: String) {
+    fun getMovie(id: String) = viewModelScope.launch(Dispatchers.IO){
         repository.getMovieById(id, movie)
+    }
+
+    fun delete() = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(movie.value!!)
     }
 }

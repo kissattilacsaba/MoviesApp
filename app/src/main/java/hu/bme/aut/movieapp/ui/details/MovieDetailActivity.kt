@@ -37,7 +37,9 @@ class MovieDetailActivity : AppCompatActivity() {
         detailsViewModel.getMovie(movieId)
         binding.savebtn.setOnClickListener {
             detailsViewModel.insert()
-            savebtn.text="Success!!"
+        }
+        binding.btnDelete.setOnClickListener {
+            detailsViewModel.delete()
         }
     }
 

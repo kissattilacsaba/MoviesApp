@@ -18,7 +18,7 @@ class MovieRepository @Inject constructor(
 
     fun searchMovies(allMovies: MutableLiveData<List<Movie>>, searchTerm: String) {
         val call = movieService.getMovies(searchTerm, "531f73d8")
-        call.enqueue(object: Callback<SearchResult> {
+        call.enqueue(object : Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                 allMovies.postValue((response.body()!!.Search))
             }
@@ -29,24 +29,27 @@ class MovieRepository @Inject constructor(
         })
     }
 
-     fun getAllMovies(): LiveData<List<Movie>> {
+    fun getAllMovies(): LiveData<List<Movie>> {
         return movieDao.getAllMovies()
     }
 
     fun getMovieById(movieId: String, movie: MutableLiveData<Movie>) {
-
-
-        val call = movieService.getSingleMovie(movieId, "531f73d8")
-        call.enqueue(object: Callback<Movie>{
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+        val movies = movieDao.getMovieById(movieId)
+        if (movies.isNotEmpty())
+            movie.postValue(movies[0])
+        else {
+            val call = movieService.getSingleMovie(movieId, "531f73d8")
+            call.enqueue(object : Callback<Movie> {
+                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                     movie.postValue(response.body())
-            }
+                }
 
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
 
-        })
+            })
+        }
     }
 
     suspend fun insert(movie: Movie) {

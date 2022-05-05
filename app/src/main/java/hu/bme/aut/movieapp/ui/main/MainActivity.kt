@@ -32,10 +32,6 @@ class MainActivity : AppCompatActivity() {
             //initRecyclerView()
             moviesViewModel.search(binding.editTextSearch.text.toString())
         }
-        binding.dbButton.setOnClickListener {
-            moviesViewModel.getMovies()
-            dbButton.text="Success!!"
-        }
 
     }
 
@@ -62,7 +58,10 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_saved_movies -> {
                 moviesViewModel.getMovies()
-                binding.dbButton.text="Success!!"
+                true
+            }
+            R.id.action_delete_movies -> {
+                moviesViewModel.deleteAll()
                 true
             }
             else -> super.onOptionsItemSelected(item)
