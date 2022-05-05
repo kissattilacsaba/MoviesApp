@@ -25,6 +25,12 @@ class MovieDetailActivity : AppCompatActivity() {
         movieId = intent.getStringExtra(KEY_MOVIE)!!
 
         detailsViewModel.movie.observe(this, {
+            binding.tvTitle.text = it.Title
+            binding.tvDate.text = it.Year
+            binding.tvRuntime.text = it.Runtime
+            binding.tvGenre.text = it.Genre
+            binding.tvDirector.text = it.Director
+            binding.tvActors.text = it.Actors
             binding.Movieplot.text = it.Plot
         })
 

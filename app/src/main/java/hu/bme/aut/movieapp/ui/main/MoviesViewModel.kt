@@ -24,8 +24,8 @@ class MoviesViewModel @Inject constructor(
         repository.deleteAll()
     }
 
-    fun testApi() {
-        repository.searchMovies(allMovies)
+    fun search(searchTerm: String) {
+        repository.searchMovies(allMovies, searchTerm)
     }
 
     fun getMovies() {

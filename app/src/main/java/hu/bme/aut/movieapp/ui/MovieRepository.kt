@@ -16,8 +16,8 @@ class MovieRepository @Inject constructor(
     private val movieService: MovieService
 ) {
 
-    fun searchMovies(allMovies: MutableLiveData<List<Movie>>) {
-        val call = movieService.getMovies("lord of the rings", "531f73d8")
+    fun searchMovies(allMovies: MutableLiveData<List<Movie>>, searchTerm: String) {
+        val call = movieService.getMovies(searchTerm, "531f73d8")
         call.enqueue(object: Callback<SearchResult> {
             override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
                 allMovies.postValue((response.body()!!.Search))
@@ -34,6 +34,8 @@ class MovieRepository @Inject constructor(
     }
 
     fun getMovieById(movieId: String, movie: MutableLiveData<Movie>) {
+
+
         val call = movieService.getSingleMovie(movieId, "531f73d8")
         call.enqueue(object: Callback<Movie>{
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {

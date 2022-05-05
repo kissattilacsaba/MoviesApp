@@ -6,6 +6,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatImageView
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movieapp.R
 import hu.bme.aut.movieapp.databinding.ActivityMainBinding
@@ -29,9 +30,7 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         binding.apiButton.setOnClickListener {
             //initRecyclerView()
-            moviesViewModel.testApi()
-            apiButton.text = "Changed!"
-
+            moviesViewModel.search(binding.editTextSearch.text.toString())
         }
         binding.dbButton.setOnClickListener {
             moviesViewModel.getMovies()
@@ -61,7 +60,11 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_saved_movies -> {
+                moviesViewModel.getMovies()
+                binding.dbButton.text="Success!!"
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
