@@ -101,18 +101,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDirector" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/labelBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tvActors,imageView2" />
+
     <TextView
         android:id="@+id/Movieplot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:textSize="16sp"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvActors" />
+        app:layout_constraintTop_toBottomOf="@+id/labelBarrier" />
 
     <Button
         android:id="@+id/savebtn"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.movieapp.R
 import androidx.databinding.DataBindingUtil
+import coil.load
 import hu.bme.aut.movieapp.databinding.MovieRowBinding
 import hu.bme.aut.movieapp.model.Movie
 import hu.bme.aut.movieapp.ui.details.MovieDetailActivity
@@ -42,6 +43,7 @@ class MovieAdapter(private val context: Context,
     class ViewHolder(val binding: MovieRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.movie = movie
+            binding.imageView.load(movie.Poster)
         }
     }
 }
