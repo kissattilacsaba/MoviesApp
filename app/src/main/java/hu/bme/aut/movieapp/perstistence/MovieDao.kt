@@ -1,10 +1,7 @@
 package hu.bme.aut.movieapp.perstistence
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import hu.bme.aut.movieapp.model.Movie
 
 @Dao
@@ -13,7 +10,10 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     fun getAllMovies(): LiveData<List<Movie>>
 
-    @Insert
+    @Query("SELECT * FROM movies WHERE imdbID = :imdbId")
+    fun getMovieById(imdbId: String): List<Movie>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMovie(movie: Movie) : Long
 
     @Delete
