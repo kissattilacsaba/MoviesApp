@@ -30,9 +30,7 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(
-                "https://www.omdbapi.com/"
-            )
+            .baseUrl("https://www.omdbapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

@@ -3,10 +3,10 @@ package hu.bme.aut.movieapp.network
 import hu.bme.aut.movieapp.BuildConfig
 import okhttp3.*
 
-class RequestInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
+abstract class RequestInterceptor : Interceptor {
+   /* override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
-            val uri = chain.request().url().uri().toString()
+            //val uri = chain.request().url().uri().toString()
             val responseString = MovieResponseJson
             return chain.proceed(chain.request())
                 .newBuilder()
@@ -24,7 +24,7 @@ class RequestInterceptor : Interceptor {
             throw IllegalAccessError("MockInterceptor is only meant for Testing Purposes and " +
                     "bound to be used only with DEBUG mode")
         }
-    }
+    }*/
 }
 
 const val MovieResponseJson = """
