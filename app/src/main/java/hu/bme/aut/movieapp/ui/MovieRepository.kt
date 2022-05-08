@@ -28,7 +28,7 @@ class MovieRepository @Inject constructor(
             movie.postValue(movies[0])
         else {
             val call = movieService.getSingleMovie(movieId, "531f73d8")
-            val response = call.body()
+            val response = call.body()!!
             movie.postValue(response)
         }
     }
