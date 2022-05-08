@@ -6,13 +6,12 @@ import androidx.activity.viewModels
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movieapp.databinding.ActivityMovieDetailBinding
-import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 @AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
 
     companion object {
-        const val KEY_MOVIE = "KEY_MOVIE"
+        const val KEY_MOVIE_ID = "KEY_MOVIE_ID"
     }
 
     private lateinit var movieId: String
@@ -21,11 +20,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        movieId = intent.getStringExtra(KEY_MOVIE)!!
+        movieId = intent.getStringExtra(KEY_MOVIE_ID)!!
+        detailsViewModel.getMovie(movieId)
 
-        detailsViewModel.movie.observe(this, {
+        detailsViewModel.movie.observe(this) {
             binding.tvTitle.text = it.Title
             binding.tvDate.text = it.Year
             binding.tvRuntime.text = it.Runtime
@@ -34,16 +35,10 @@ class MovieDetailActivity : AppCompatActivity() {
             binding.tvActors.text = it.Actors
             binding.Movieplot.text = it.Plot
             binding.imageView2.load(it.Poster)
-        })
+        }
 
-        detailsViewModel.getMovie(movieId)
         binding.savebtn.setOnClickListener {
             detailsViewModel.insert()
         }
-        binding.btnDelete.setOnClickListener {
-            detailsViewModel.delete()
-        }
     }
-
-
 }

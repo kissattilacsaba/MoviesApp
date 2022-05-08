@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import hu.bme.aut.movieapp.model.Movie
 import hu.bme.aut.movieapp.network.MovieService
 import hu.bme.aut.movieapp.persistence.MovieDao
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -13,9 +14,12 @@ class MovieRepository @Inject constructor(
 ) {
 
     suspend fun searchMovies(allMovies: MutableLiveData<List<Movie>>, searchTerm: String) {
-        val call = movieService.getMovies(searchTerm, "531f73d8")
-        val movies = call.body()!!.Search
-        allMovies.postValue(movies)
+        try {
+            val call = movieService.getMovies(searchTerm, "531f73d8")
+            val movies = call.body()!!.Search
+            allMovies.postValue(movies)
+        }
+        catch (exception: SocketTimeoutException) {}
     }
 
     fun getAllMovies(): LiveData<List<Movie>> {

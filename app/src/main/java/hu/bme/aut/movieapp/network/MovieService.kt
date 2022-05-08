@@ -12,7 +12,6 @@ interface MovieService {
     @GET(".")
     suspend  fun getMovies(@Query("s")  term: String,
                   @Query("apikey") key: String): Response<SearchResult>
-            //Call<SearchResult>
 
     @GET(".")
     suspend fun getSingleMovie(@Query("i") id: String,

@@ -24,7 +24,4 @@ class MovieDetailViewModel @Inject constructor(
         repository.getMovieById(id, movie)
     }
 
-    fun delete() = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(movie.value!!)
-    }
 }
