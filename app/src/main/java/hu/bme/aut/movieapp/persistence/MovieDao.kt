@@ -1,4 +1,4 @@
-package hu.bme.aut.movieapp.perstistence
+package hu.bme.aut.movieapp.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

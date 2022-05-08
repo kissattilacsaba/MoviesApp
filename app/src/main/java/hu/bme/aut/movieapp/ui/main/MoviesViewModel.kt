@@ -24,7 +24,7 @@ class MoviesViewModel @Inject constructor(
         repository.deleteAll()
     }
 
-    fun search(searchTerm: String) {
+    fun search(searchTerm: String) = viewModelScope.launch(Dispatchers.IO) {
         repository.searchMovies(allMovies, searchTerm)
     }
 

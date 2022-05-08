@@ -1,4 +1,4 @@
-package hu.bme.aut.movieapp.perstistence
+package hu.bme.aut.movieapp.persistence
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

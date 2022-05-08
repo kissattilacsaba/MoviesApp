@@ -6,9 +6,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import hu.bme.aut.movieapp.R
-import hu.bme.aut.movieapp.perstistence.AppDatabase
-import hu.bme.aut.movieapp.perstistence.MovieDao
+import hu.bme.aut.movieapp.persistence.AppDatabase
+import hu.bme.aut.movieapp.persistence.MovieDao
 import javax.inject.Singleton
 
 @Module

@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import hu.bme.aut.movieapp.network.MovieService
-import hu.bme.aut.movieapp.perstistence.MovieDao
+import hu.bme.aut.movieapp.persistence.MovieDao
 import hu.bme.aut.movieapp.ui.MovieRepository
 
 @Module
