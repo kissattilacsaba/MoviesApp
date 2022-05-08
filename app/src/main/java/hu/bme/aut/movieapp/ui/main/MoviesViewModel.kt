@@ -16,8 +16,10 @@ class MoviesViewModel @Inject constructor(
 
     var allMovies = MediatorLiveData<List<Movie>>()
 
-    fun delete(movie: Movie) = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(movie)
+    var dbmode = false
+
+    fun delete(position: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(allMovies.value!![position])
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
@@ -25,12 +27,15 @@ class MoviesViewModel @Inject constructor(
     }
 
     fun search(searchTerm: String) = viewModelScope.launch(Dispatchers.IO) {
+        dbmode = false
         repository.searchMovies(allMovies, searchTerm)
     }
 
     fun getMovies() {
+        dbmode = true
         allMovies.addSource(repository.getAllMovies()) {
-            allMovies.value = it
+            if (dbmode)
+                allMovies.value = it
         }
     }
 }

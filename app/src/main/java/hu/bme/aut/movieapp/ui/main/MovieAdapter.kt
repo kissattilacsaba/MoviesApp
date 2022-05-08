@@ -1,4 +1,4 @@
-package hu.bme.aut.movieapp.ui
+package hu.bme.aut.movieapp.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,7 +14,6 @@ import coil.load
 import hu.bme.aut.movieapp.databinding.MovieRowBinding
 import hu.bme.aut.movieapp.model.Movie
 import hu.bme.aut.movieapp.ui.details.MovieDetailActivity
-import hu.bme.aut.movieapp.ui.main.MoviesViewModel
 
 class MovieAdapter(private val context: Context,
                   private val moviesViewModel: MoviesViewModel
@@ -36,8 +35,12 @@ class MovieAdapter(private val context: Context,
 
     fun showDetails(movie: Movie) {
         val intent = Intent(context, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.KEY_MOVIE, movie.imdbID)
+        intent.putExtra(MovieDetailActivity.KEY_MOVIE_ID, movie.imdbID)
         context.startActivity(intent)
+    }
+
+    fun deleteItem(position: Int) {
+        moviesViewModel.delete(position)
     }
 
     class ViewHolder(val binding: MovieRowBinding) : RecyclerView.ViewHolder(binding.root) {

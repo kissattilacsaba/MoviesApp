@@ -9,7 +9,7 @@
             type="hu.bme.aut.movieapp.model.Movie" />
         <variable
             name="adapter"
-            type="hu.bme.aut.movieapp.ui.MovieAdapter" />
+            type="hu.bme.aut.movieapp.ui.main.MovieAdapter" />
     </data>
 
     <androidx.cardview.widget.CardView
