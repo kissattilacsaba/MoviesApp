@@ -3,12 +3,8 @@ package hu.bme.aut.movieapp.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import hu.bme.aut.movieapp.model.Movie
-import hu.bme.aut.movieapp.model.SearchResult
 import hu.bme.aut.movieapp.network.MovieService
-import hu.bme.aut.movieapp.perstistence.MovieDao
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import hu.bme.aut.movieapp.persistence.MovieDao
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(

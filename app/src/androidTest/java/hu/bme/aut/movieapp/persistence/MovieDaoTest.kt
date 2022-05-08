@@ -1,11 +1,11 @@
-package hu.bme.aut.movieapp
+package hu.bme.aut.movieapp.persistence
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import hu.bme.aut.movieapp.LiveDataTestUtil.getValue
 import hu.bme.aut.movieapp.model.Movie
-import hu.bme.aut.movieapp.perstistence.AppDatabase
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.CoreMatchers.equalTo
@@ -14,9 +14,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
-@RunWith(JUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class MovieDaoTest {
 
     @Rule

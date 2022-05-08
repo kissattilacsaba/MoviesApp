@@ -1,7 +1,6 @@
-package hu.bme.aut.movieapp
+package hu.bme.aut.movieapp.network
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import hu.bme.aut.movieapp.network.MovieService
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -19,7 +18,6 @@ import org.junit.runners.JUnit4
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.nio.charset.StandardCharsets
-import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
 class MovieServiceTest {
@@ -35,17 +33,13 @@ class MovieServiceTest {
     @Before
     fun createService() {
         mockWebServer = MockWebServer()
-        mockWebServer.start()
         val okHttpClient = OkHttpClient
             .Builder()
-            .readTimeout(10, TimeUnit.SECONDS)
             .build()
         service = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
-            .addConverterFactory(
-                GsonConverterFactory.create()
-            )
-            //.client(okHttpClient)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MovieService::class.java)
 
@@ -62,7 +56,7 @@ class MovieServiceTest {
         mockWebServer.enqueueResponse("response.json", 200)
 
         //Act
-        val movies = service.getMovies("", "").body()
+        val movies = service.getMovies("jurassic", "xy").body()
 
         //Assert
         assertThat(movies, `is`(notNullValue()))
@@ -76,7 +70,7 @@ class MovieServiceTest {
         mockWebServer.enqueueResponse("movie.json", 200)
 
         //Act
-        val movie = service.getSingleMovie("tt0107290", "").body()
+        val movie = service.getSingleMovie("tt0107290", "xy").body()
 
         //Assert
         assertThat(movie, `is`(notNullValue()))
@@ -85,8 +79,7 @@ class MovieServiceTest {
     }
 
     private fun MockWebServer.enqueueResponse(fileName: String, code: Int) {
-        val inputStream = javaClass.classLoader?.getResourceAsStream("assets/api-response/$fileName")
-
+        val inputStream = javaClass.classLoader?.getResourceAsStream("api-response/$fileName")
         val source = inputStream?.let { inputStream.source().buffer() }
         source?.let {
             enqueue(
@@ -96,7 +89,4 @@ class MovieServiceTest {
             )
         }
     }
-
-
-
 }
