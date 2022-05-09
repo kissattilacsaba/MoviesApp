@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import coil.load
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movieapp.databinding.ActivityMovieDetailBinding
 
@@ -17,6 +18,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var movieId: String
     private lateinit var binding: ActivityMovieDetailBinding
     private val detailsViewModel: MovieDetailViewModel by viewModels()
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,14 @@ class MovieDetailActivity : AppCompatActivity() {
 
         binding.savebtn.setOnClickListener {
             detailsViewModel.insert()
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Save")
+            firebaseAnalytics.logEvent("Save_movie", bundle)
         }
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "DetailActivity")
+        firebaseAnalytics.logEvent("DetailActivity", bundle)
     }
 }

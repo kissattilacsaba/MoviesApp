@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.wrappers.InstantApps
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 import hu.bme.aut.movieapp.R
 import hu.bme.aut.movieapp.databinding.ActivityMainBinding
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var touchHelper: ItemTouchHelper
     lateinit var movieAdapter: MovieAdapter
     private val moviesViewModel: MoviesViewModel by viewModels()
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "MainActivity")
+        firebaseAnalytics.logEvent("MainActivity", bundle)
+
     }
 
     private fun initRecyclerView() {
@@ -66,11 +74,17 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_saved_movies -> {
                 moviesViewModel.getMovies()
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Search")
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle)
                 touchHelper.attachToRecyclerView(binding.listMovies)
                 true
             }
             R.id.action_delete_movies -> {
                 moviesViewModel.deleteAll()
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Delete all")
+                firebaseAnalytics.logEvent("Delete_all", bundle)
                 touchHelper.attachToRecyclerView(binding.listMovies)
                 true
             }
